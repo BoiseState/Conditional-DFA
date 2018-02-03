@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="artifacts/test/|artifacts/|libs/|ConditionalTACAS/conditions/|ConditionalTACAS/|src/conditional/driver/|src/conditional/|src/" kind="src" path=""/>
+	<classpathentry kind="src" path="artifacts"/>
+	<classpathentry excluding="disjoint.analysis/" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/antlr-4.1-complete.jar"/>
+	<classpathentry kind="lib" path="libs/disjoint-domains.jar"/>
+	<classpathentry kind="lib" path="libs/soot-trunk.jar"/>
+	<classpathentry kind="lib" path="/Users/elenasherman/Documents/z3Java/z3/build/com.microsoft.z3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
