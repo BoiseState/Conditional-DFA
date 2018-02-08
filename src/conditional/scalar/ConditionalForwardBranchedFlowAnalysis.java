@@ -59,8 +59,8 @@ import soot.options.*;
  * */
 public abstract class ConditionalForwardBranchedFlowAnalysis<A> extends BranchedFlowAnalysis<Unit, A> {
 
-	public List<ConditionalInfo> myBranchList;
-	Map<Unit, Integer> condToLine;
+	protected List<ConditionalInfo> myBranchList;
+	protected Map<Unit, Integer> condToLine;
 
 
 
@@ -76,10 +76,11 @@ public abstract class ConditionalForwardBranchedFlowAnalysis<A> extends Branched
 	protected boolean isForward() {
 		return true;
 	}
+	
 
 	// Accumulate the previous afterFlow sets. //This method is called twice in fixed point algorithm
 	//The first time is before the flowThrough is called, to accumulate the previousAfterFlows for that node
-	//the second time is after the flowThough is caled to accumulate teh afterFlows for that node
+	//the second time is after the flowThough is caled to accumulate the afterFlows for that node
 	//if the iterative algorithm only goes through the graph one time without loops, then the previousAfterFlows will always be empty
 	private void accumulateAfterFlowSets(Unit s, A[] flowRepositories, List<Object> previousAfterFlows) {
 		//System.out.println("accumulating the after flow set");
@@ -109,45 +110,7 @@ public abstract class ConditionalForwardBranchedFlowAnalysis<A> extends Branched
 		}
 	} // end accumulateAfterFlowSets
 
-	//	private void specialDFS(Map<Unit, Integer> condToLine, List<Unit>  orderedWorkList, Unit root){ //special depth first search to get the orderedWorkingList by only traversing down the branches we select to go down
-	//		
-	//		HashSet<Unit> visited = new HashSet<Unit>();
-	//		visited.add(root);
-	//		
-	//		//create an empty stack of Unit
-	//		int last = 0; //corresponds to the level of the stack we are at. always 1 more than the level we are at
-	//		ArrayList <Unit> stmtStack = new ArrayList<Unit>(); //add and remove from end to implement as stack
-	//		//add the root to the stack
-	//		ArrayList <Integer> indexStack = new ArrayList<Integer>(); //each element corresponds to the next child for the stmtStack
-	//		
-	//		stmtStack.set(last,root);
-	//		indexStack.set(last, 0);
-	//		last++;
-	//		
-	//		
-	//		while (last > 0){
-	//			Unit current = stmtStack.get(last - 1);
-	//			int index = indexStack.get(last - 1);
-	//			indexStack.set(last - 1, index + 1);
-	//			
-	//			List<Unit> succs = graph.getSuccsOf(current);
-	//			
-	//			if (index >=succs.size()){
-	//				orderedWorkList.add(current);
-	//				last--;
-	//			}else{
-	//				if (visited.add(root)){
-	//					stmtStack.set(last, succs.get(index));
-	//					indexStack.set(last, 0);
-	//					last++;
-	//				}
-	//			}
-	//			
-	//			
-	//		}
-	//		
-	//		
-	//	}
+
 
 	private void makeCondToLineMap(Map<Unit, Integer> condToLine){
 		int value = 1;

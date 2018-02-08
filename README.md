@@ -84,7 +84,8 @@ test.BallonFactory	1	1t2f	4	5273	5258
 Where the first two columns are class and its method id, next is the path encoding
 followed by the order in which this path completed. The one before last column is time
 in ms for the full analysis and the last column is the time for that conditional analysis.
-This data is in "VA c1 vs f time" and "VA c2 vs f time" tabs.
+This data is in "VA c1 vs f time" and "VA c2 vs f time" tabs. NOTE that if you
+want to "reset" experiments delete time files, otherwise the data will be appened to the old data
 
 Also it will populate resultsVA/combined/c1 and resultsVA/combined/c2, which contain
 invariants aggregated in the order in which conditional analyses complete its execution.
@@ -111,7 +112,7 @@ z3 is locate, i.e., inside its build directory.
 
 This step will produce sat/unsat result for each query in resultsVA/satunsat/c1 and resultsVA/satunsat/c2
 ------------------------------------------
-Step 6 run the sat/unsat count script
+Step 6 run the sat/unsat count script (delete old statunast_dom4.txt files, otherwise data will be appended)
 ./runCountSatUnsat.bash ./ConditionalTACAS/ classToMethodCond.txt c1
 ./runCountSatUnsat.bash ./ConditionalTACAS/ classToMethodCond.txt c2
 

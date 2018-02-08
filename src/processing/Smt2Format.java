@@ -21,11 +21,11 @@ public class Smt2Format {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		String className = "test.MapViewer";
-		String methodId = "2";
-		String domain = "_dom5.txt";
-		String type = "c1";
-		String dataPath = "./ScratchData/";
+		String className = "test.BallonFactory";
+		String methodId = "1";
+		String domain = "_dom4.txt";
+		String type = "c2";
+		String dataPath = "./ConditionalTACAS/";
 		if(args.length > 0){
 			dataPath = args[0];
 			className = args[1];
@@ -130,7 +130,8 @@ public class Smt2Format {
 		Writer writer = new FileWriter(smt2FilesPath+file1Name+"_VS_"+file2Name);
 		while(scanner.hasNext()){
 			String line = scanner.nextLine();
-			if(line.matches("^[0-9].*")){
+			//System.out.println("line " + line);
+			if(line.matches("^[0-9].*")){//if a statement with line number
 				if(!constraint.equals("") && stmtTo!=null){
 					//first create the constraint
 					//for the last read variable
@@ -139,16 +140,22 @@ public class Smt2Format {
 					formula = "";
 				}
 				//write to the file
+				//System.out.println("wrt1 " + constraint);
 				writer.write(constraint);
 				//starting a new constraint
 				stmtTo = file1Map.get(line);
 				stmt = line;
 				constraint = "(echo \"" + stmt +"\") \n";
+				//System.out.println("c " + constraint);
 				if(stmtTo == null){
 					System.out.println("Stmt not present " + line);
 					//System.exit(2);
+					//write that stmt and set tconstraint to blank
+					//System.out.println("wrt2 " + constraint);
+					//writer.write(constraint);
 					var = "";
 					formula = "";
+					//constraint = "";
 				}
 			} else if (line.contains("->")){
 				//variable
@@ -169,12 +176,16 @@ public class Smt2Format {
 						constraint += writeConstraint(stmtTo, constraint, var, formula);
 					}
 				}
+				if(stmtTo != null){
 				String[] data = line.split("->");
 				var = data[0];
 				formula = data[1];
+				}
 				
 			} else {
-				formula += line.trim();
+				if(stmtTo != null){
+					formula += line.trim();
+				}
 			}
 		}
 		//write the formula for the last variable in the last statement
@@ -183,6 +194,7 @@ public class Smt2Format {
 		if(stmtTo != null){
 			constraint +=writeConstraint(stmtTo, constraint, var, formula);
 		}
+		//System.out.println("wrt3 " + constraint);
 		writer.write(constraint);
 		scanner.close();
 		writer.flush();

@@ -27,11 +27,11 @@ public class StartConditionalValue {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String className = "test.Example1M";
-		String methodId = "4";
+		String className = "test.BallonFactory";
+		String methodId = "1";
 		String domain = "dom4.txt";
 		String symbolic = "sN";
-		String condition = "1f1t";
+		String condition = "1t2t8f";
 		path = "./ConditionalTACAS/resultsVA/";
 
 		if(args.length > 0){

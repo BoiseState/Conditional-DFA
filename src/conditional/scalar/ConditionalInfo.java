@@ -1,7 +1,9 @@
 package conditional.scalar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConditionalInfo {
 	
@@ -26,6 +28,14 @@ public class ConditionalInfo {
 		return Integer.toString(line) + " " + branch;
 	}
 	
+	public static Map<Integer, Boolean> createFlowInfoMap(List<ConditionalInfo> list){
+		Map<Integer,Boolean> map = new HashMap<Integer, Boolean>();
+		for(ConditionalInfo ci : list){
+			map.put(ci.getLine(), ci.getBranch());
+		}
+		return map;
+	}
+	
 	public static List<ConditionalInfo> createFlowInfoList(String flowList){
 		//System.out.println("I'm here " + flowList);
 		List<ConditionalInfo> myList = new ArrayList<ConditionalInfo>();
@@ -47,27 +57,7 @@ public class ConditionalInfo {
 				}
 				myList.add(new ConditionalInfo(lineNumber, branch));
 			}
-			
-//			if (i%2 == 0){
-//				lineNumber = Character.getNumericValue(flowList.charAt(i));
-//				//int linenumber
-//			}else{
-//				boolean branch = true;
-//				if (flowList.charAt(i) == 'f'){
-//					branch = false;
-//				}else{
-//					branch = true;
-//				}
-//				branchInfo.add(new MyFlowInfo(lineNumber, branch));
-//				//boolean branch
-//				//add linenumber and branch 
-//			}
 		}
-//		System.out.println("printing out the branch Infos");
-//		for (ConditionalInfo f: myList){
-//			System.out.println(f);
-//		}
-//System.out.println("ML " + myList);
 		return myList;
 	}
 }

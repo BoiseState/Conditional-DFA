@@ -23,9 +23,9 @@ public class CountSatUnsatPartial {
 		//String[] classes = {"Base64"};
 		String className = "test.BallonFactory";
 		String methodId = "1";
-		String domain = "dom9";
+		String domain = "dom4";
 		String dataPath ="./ConditionalTACAS/";
-		String type = "c1";
+		String type = "c2";
 		if(args.length > 0){
 			dataPath = args[0];
 			className = args[1];
@@ -34,6 +34,21 @@ public class CountSatUnsatPartial {
 			type = args[4];
 		} 
 		
+		//open the full invariant and count lines with "->" substring
+		String fullInvFileName = dataPath+"/resultsVA/invariants/"+className+"_"+methodId+"_"+domain+".txt";
+		File fullInvFile = new File(fullInvFileName);
+		int fullInvCount = 0;
+		if(fullInvFile.exists()){
+			Scanner fullInvScan = new Scanner(fullInvFile);
+			while(fullInvScan.hasNextLine()){
+				if(fullInvScan.nextLine().contains("->")){
+					fullInvCount++;
+				}
+			}
+			fullInvScan.close();
+		} else {
+			System.out.println("oops cannot find full inv file " + fullInvFileName);
+		}
 		
 		//read the path file and get all the number of path from it
 		String pathFileName = dataPath+"/conditions/paths/"+className+"_"+methodId+".txt";
@@ -64,13 +79,14 @@ public class CountSatUnsatPartial {
 				Scanner scanner = new Scanner(new FileReader(file));
 				while(scanner.hasNext()){
 					String line = scanner.nextLine();
-
+					//System.out.println(line);
 						if(line.equals("sat")){
 							//read the next line
 							String line2 = scanner.nextLine();
 							if(line2.equals("sat")){
 								//add to index 0
 								incrementAt(0, pathData);
+								//System.out.println("\t" + pathData.get(0));
 							} else if (line2.equals("unsat")){
 								//add to index 2
 								incrementAt(2,pathData);
@@ -100,11 +116,12 @@ public class CountSatUnsatPartial {
 					for(Integer val : pathData){
 						satunsatOutput+="\t" + val;
 					}
-					satunsatOutput+="\n";
+					satunsatOutput+="\t"+ fullInvCount+"\n";
 
 				pathId++;
 			}//end reading datafile
 			} 
+			//System.out.println(satunsatOutput);
 			String timeOutFileName = dataPath + "/resultsVA/satunsat/"+type+"/satunsat_"+domain+".txt";
 			File timeOutFile = new File(timeOutFileName);
 			if(!timeOutFile.exists()){
