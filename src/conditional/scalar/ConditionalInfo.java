@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import soot.Unit;
+import soot.jimple.IfStmt;
 
 public class ConditionalInfo {
 	
@@ -28,12 +32,19 @@ public class ConditionalInfo {
 		return Integer.toString(line) + " " + branch;
 	}
 	
-	public static Map<Integer, Boolean> createFlowInfoMap(List<ConditionalInfo> list){
-		Map<Integer,Boolean> map = new HashMap<Integer, Boolean>();
+	public static Map<IfStmt, Boolean> createFlowInfoMap(List<ConditionalInfo> list, Map<Unit,Integer> map){
+		Map<IfStmt,Boolean> ret = new HashMap<IfStmt, Boolean>();
 		for(ConditionalInfo ci : list){
-			map.put(ci.getLine(), ci.getBranch());
+			IfStmt ifstmt = null;
+			for(Entry<Unit, Integer> entry : map.entrySet()){
+				if(entry.getValue() == ci.line){
+					ifstmt = (IfStmt) entry.getKey();
+					break;
+				}
+			}
+			ret.put(ifstmt, ci.getBranch());
 		}
-		return map;
+		return ret;
 	}
 	
 	public static List<ConditionalInfo> createFlowInfoList(String flowList){

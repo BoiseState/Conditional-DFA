@@ -14,7 +14,6 @@ import java.util.Set;
 import disjoint.analysis.ValueAnalysis;
 import disjoint.domain.Domain;
 import soot.Local;
-import soot.Timers;
 import soot.Unit;
 import soot.grimp.internal.GAndExpr;
 import soot.jimple.AssignStmt;
@@ -145,6 +144,7 @@ public class PseudoConditionalValueAnalysis extends ValueAnalysis {
 }
 	}
 }
+	
 
 	@Override
 	protected void flowThrough(AbstractState in, Unit u, List<AbstractState> fallIn, List<AbstractState> branchOut) {

@@ -31,7 +31,7 @@ public class StartConditionalValue {
 		String methodId = "1";
 		String domain = "dom4.txt";
 		String symbolic = "sN";
-		String condition = "1t2t8f";
+		String condition = "1t,2t,8f";
 		path = "./ConditionalTACAS/resultsVA/";
 
 		if(args.length > 0){
@@ -48,12 +48,6 @@ public class StartConditionalValue {
 		StartConditionalValue.className = className;
 	
 		
-//		try {
-//			timeDataFile = new FileWriter(resultsPath+"timeData",true);
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
 //		
 				StartConditionalValue.domain = domain.split("\\.")[0];
 				analysisType = StartConditionalValue.domain + "_"+ symbolic;
@@ -61,18 +55,10 @@ public class StartConditionalValue {
 					System.out.println(condition);
 					StartConditionalValue.condition = condition.isEmpty()?"":condition.replaceAll(",", "");
 					new StartConditionalValue(className, domain, /*symbolicOn, */condition, methodId);
-					G.reset();
-					System.gc();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-//		try {
-//			timeDataFile.close();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 	
 	//The class should have static fields for the files to write to

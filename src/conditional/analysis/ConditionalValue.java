@@ -79,6 +79,7 @@ public class ConditionalValue extends BodyTransformer {
 				}
 				countOfStmt++;
 			}
+			//System.out.println("C " + conditions);
 			ConditionalValueAnalysis va = new ConditionalValueAnalysis(new ExceptionalUnitGraph(b), domains, ConditionalInfo.createFlowInfoList(conditions));
 			System.out.println("done init " + b.getMethod().getSignature());
 			va.start();

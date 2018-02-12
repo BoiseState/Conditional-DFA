@@ -206,6 +206,7 @@ public class ConditionalValueAnalysis extends ConditionalForwardBranchedFlowAnal
 	protected void flowThrough(AbstractState in, Unit u, List<AbstractState> fallIn,
 			List<AbstractState> branchOut) {
 		Stmt s = (Stmt) u;
+		//System.out.println(this.condToLine.get(u) + " : " + u);
 		AbstractState inState = in;
 		AbstractState ifStmtTrue = inState.copy(); //instantiated in ifStmt only; outBranch
 		AbstractState ifStmtFalse = inState.copy();//fallIn; out
@@ -287,6 +288,15 @@ public class ConditionalValueAnalysis extends ConditionalForwardBranchedFlowAnal
 				track.add(rhs);
 			}
 			//created the negated one
+			if(include.containsKey(s)){
+				if(include.get(s)){
+					//exclude the false branch - afterFallFlow
+					ifStmtFalse.setInfeasible();
+				} else {
+					//exclude the true branch - afterBranchFlow
+					ifStmtTrue.setInfeasible();
+				}
+			}
 		} // end if this is an integer conditional stmt
 
 	}

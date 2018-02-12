@@ -61,7 +61,7 @@ public abstract class ConditionalForwardBranchedFlowAnalysis<A> extends Branched
 
 	protected List<ConditionalInfo> myBranchList;
 	protected Map<Unit, Integer> condToLine;
-
+	protected Map<IfStmt, Boolean> include;
 
 
 	public ConditionalForwardBranchedFlowAnalysis(UnitGraph graph, List<ConditionalInfo> branchList) {
@@ -70,7 +70,9 @@ public abstract class ConditionalForwardBranchedFlowAnalysis<A> extends Branched
 		//System.out.println("BL " + myBranchList);
 		condToLine = new HashMap<Unit, Integer>(); //a map of conditional units to the number of that conditional statement. //the first conditional statement is the 0 conditional statement
 		makeCondToLineMap(condToLine);
-
+		//System.out.println(condToLine);
+		include = ConditionalInfo.createFlowInfoMap(branchList, condToLine);
+		//System.out.println(include);
 	}
 
 	protected boolean isForward() {
@@ -310,7 +312,7 @@ public abstract class ConditionalForwardBranchedFlowAnalysis<A> extends Branched
 
 					//System.out.println("in flow " + beforeFlow + "before fall " + afterFallFlow + " before branch " + afterBranchFlow );
 					flowThrough(beforeFlow, s, afterFallFlow, afterBranchFlow);
-
+					//set to infeasible according to the include
 
 
 					numComputations++; //the number of computations is one more
